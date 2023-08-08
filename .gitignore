@@ -1,2 +1,2 @@
-# AWS environment variables
-aws.env
+# Environment variables
+*.env

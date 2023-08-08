@@ -1,8 +1,6 @@
 # Assume STS Role
 
-A simple Python CLI script to assume a role from AWS STS with an MFA token.
-
-By default, it will store the temporary credentials in the AWS profile of your choice. For example, if you want to store it for the profile `my-profile`, it will store the temporary STS tokens under `my-profile-token` in your `~/.aws/credentials` file.
+A simple Python CLI script to assume a role from AWS STS.
 
 ## Requirements
 - [Python 3](https://www.python.org/downloads/)
@@ -19,23 +17,27 @@ python3 aws-session-token.py
 Here is the documentation for the CLI tool:
 
 ```bash
-python3 aws-session-token.py --help      
-usage: aws-session-token.py [-h] -t TOKEN [-p PROFILE] [-d DEVICE] [-r ROLE_ARN] [-o] [-v]
+python3 aws-session-token.py --help                     
+usage: aws-session-token.py [-h] [-x EXPIRY] [-e ENV_FILE] [-p PROFILE] [-d DEVICE] [-t TOKEN] [-r ROLE_ARN] [-s] [-v]
 
 Get AWS Session Token
 
 options:
   -h, --help            show this help message and exit
-  -t TOKEN, --token TOKEN
-                        MFA token from your device (default: None)
+  -x EXPIRY, --expiry EXPIRY
+                        Expiry time in seconds.
+  -e ENV_FILE, --env-file ENV_FILE
+                        Path to env file with AWS credentials
   -p PROFILE, --profile PROFILE
-                        AWS profile to set token for. Can also be set as AWS_PROFILE environment variable (default: None)
+                        AWS profile to set token for. Can also be set as AWS_PROFILE environment variable. Default: default
   -d DEVICE, --device DEVICE
-                        MFA device identifier. Can also be set as AWS_MFA_DEVICE environment variable (default: None)
+                        MFA device identifier. Can also be set as AWS_MFA_DEVICE environment variable. Required if MFA token is set
+  -t TOKEN, --token TOKEN
+                        MFA token from your device. Required if MFA device is set
   -r ROLE_ARN, --role-arn ROLE_ARN
-                        Role ARN to assume. Can also be set as AWS_ROLE_ARN environment variable (default: None)
-  -o, --output          Output STS response without overwriting AWS credentials file (default: False)
-  -v, --verbose         Verbose output (default: False)
+                        Role ARN to assume. Can also be set as AWS_ROLE_ARN environment variable
+  -s, --save            Saves STS tokens to AWS profile. Default: false
+  -v, --verbose         Verbose output. Default: false
 ```
 
 ## Environment variables
