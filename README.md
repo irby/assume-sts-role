@@ -29,7 +29,7 @@ options:
   -e ENV_FILE, --env-file ENV_FILE
                         Path to env file with AWS credentials
   -p PROFILE, --profile PROFILE
-                        AWS profile to set token for. Can also be set as AWS_PROFILE environment variable. Default: default
+                        AWS profile to set token for. Can also be set as AWS_SET_PROFILE environment variable. Default: default
   -d DEVICE, --device DEVICE
                         MFA device identifier. Can also be set as AWS_MFA_DEVICE environment variable. Required if MFA token is set
   -t TOKEN, --token TOKEN
@@ -49,5 +49,5 @@ Here is a template for the `aws.env` file:
 ```
 AWS_MFA_DEVICE=arn:aws:iam::1234567890:mfa/my_device
 AWS_ROLE_ARN=arn:aws:iam::1234567890:role/cli_role
-AWS_PROFILE=my-profile
+AWS_SET_PROFILE=my-profile
 ```

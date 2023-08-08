@@ -3,7 +3,7 @@ import boto3, argparse, uuid, os, dotenv, logging
 parser = argparse.ArgumentParser(description='Get AWS Session Token')
 parser.add_argument('-x', '--expiry', required=False, help="Expiry time in seconds.", default=3600, type=int)
 parser.add_argument('-e', '--env-file', required=False, help="Path to env file with AWS credentials")
-parser.add_argument('-p', '--profile', required=False, help="AWS profile to set token for. Can also be set as AWS_PROFILE environment variable. Default: default")
+parser.add_argument('-p', '--profile', required=False, help="AWS profile to set token for. Can also be set as AWS_SET_PROFILE environment variable. Default: default")
 parser.add_argument('-d', '--device', required=False, help="MFA device identifier. Can also be set as AWS_MFA_DEVICE environment variable. Required if MFA token is set")
 parser.add_argument('-t', '--token', required=False, help="MFA token from your device. Required if MFA device is set")
 parser.add_argument('-r', '--role-arn', required=False, help="Role ARN to assume. Can also be set as AWS_ROLE_ARN environment variable")
@@ -29,7 +29,7 @@ if config['env_file'] is not None:
 
 mfa_token = config['token']
 mfa_device = config['device'] or os.getenv("AWS_MFA_DEVICE")
-profile = config['profile'] or os.getenv("AWS_PROFILE") or "default"
+profile = config['profile'] or os.getenv("AWS_SET_PROFILE") or "default"
 role_arn = config['role_arn'] or os.getenv("AWS_ROLE_ARN")
 expiry_time = config['expiry']
 save_token = config['save']
