@@ -1,6 +1,6 @@
 # Assume STS Role
 
-A simple Python CLI script to assume a role from AWS STS.
+A simple Python CLI script to assume a role from AWS STS with an MFA token.
 
 By default, it will store the temporary credentials in the AWS profile of your choice. For example, if you want to store it for the profile `my-profile`, it will store the temporary STS tokens under `my-profile-token` in your `~/.aws/credentials` file.
 
