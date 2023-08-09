@@ -6,6 +6,14 @@ A simple Python CLI script to assume a role from AWS STS.
 - [Python 3](https://www.python.org/downloads/)
 - [AWS CLI](https://aws.amazon.com/cli/)
 
+## Setup
+
+To install the requirements for the Python CLI, please run the following:
+
+```bash
+pip3 install -r requirements.txt
+```
+
 ## How to run
 
 You can call the CLI tool by running the following from your console:
