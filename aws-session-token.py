@@ -1,13 +1,13 @@
 import boto3, argparse, uuid, os, dotenv, logging
 
 parser = argparse.ArgumentParser(description='Get AWS Session Token')
-parser.add_argument('-x', '--expiry', required=False, help="Expiry time in seconds.", default=3600, type=int)
+parser.add_argument('-x', '--expiry', required=False, help="Expiry time in seconds. Default: 3600", default=3600, type=int)
 parser.add_argument('-e', '--env-file', required=False, help="Path to env file with AWS credentials")
-parser.add_argument('-p', '--profile', required=False, help="AWS profile to set token for. Can also be set as AWS_SET_PROFILE environment variable.")
-parser.add_argument('-d', '--device', required=False, help="MFA device identifier. Can also be set as AWS_MFA_DEVICE environment variable. Required if MFA token is set")
+parser.add_argument('-d', '--device', required=False, help="MFA device identifier. Can also be set as AWS_MFA_DEVICE environment variable")
 parser.add_argument('-t', '--token', required=False, help="MFA token from your device. Required if MFA device is set")
 parser.add_argument('-r', '--role-arn', required=False, help="Role ARN to assume. Can also be set as AWS_ROLE_ARN environment variable")
 parser.add_argument('-s', '--save', required=False, action="store_true", help="Saves STS tokens to AWS profile. Default: false")
+parser.add_argument('-p', '--profile', required=False, help="AWS profile to set token for. Can also be set as AWS_SET_PROFILE environment variable")
 parser.add_argument('-v', '--verbose', required=False, action="store_true", help="Verbose output. Default: false")
 
 args = parser.parse_args()
@@ -42,7 +42,7 @@ if profile is None and save_token:
     raise KeyError("Profile not set. Please set AWS_SET_PROFILE environment variable or use -p/--profile argument")
 
 if (mfa_device is not None and mfa_token is None) or (mfa_device is None and mfa_token is not None):
-    raise KeyError("Both MFA device and token must be set. Please set AWS_MFA_DEVICE and AWS_MFA_TOKEN environment variables or use -d/--device and -t/--token arguments")
+    raise KeyError("Both MFA device and token must be set. Please set AWS_MFA_DEVICE or use -d/--device and pass in -t/--token arguments")
 
 client = boto3.client('sts')
 
