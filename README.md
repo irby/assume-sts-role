@@ -18,7 +18,7 @@ Here is the documentation for the CLI tool:
 
 ```bash
 python3 aws-session-token.py --help
-usage: aws-session-token.py [-h] [-x EXPIRY] [-e ENV_FILE] [-d DEVICE] [-t TOKEN] [-r ROLE_ARN] [-s] [-p PROFILE] [-v]
+usage: aws-session-token.py [-h] [-x EXPIRY] [-e ENV_FILE] [-d DEVICE] [-t TOKEN] [-r ROLE_ARN] [-s] [-p PROFILE] [-v] [--version]
 
 Get AWS Session Token
 
@@ -38,6 +38,7 @@ options:
   -p PROFILE, --profile PROFILE
                         AWS profile to set token for. Can also be set as AWS_SET_PROFILE environment variable
   -v, --verbose         Verbose output. Default: false
+  --version             show program's version number and exit
 ```
 
 ## Environment variables

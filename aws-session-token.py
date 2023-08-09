@@ -1,4 +1,5 @@
 import boto3, argparse, uuid, os, dotenv, logging
+from __version import __version__
 
 parser = argparse.ArgumentParser(description='Get AWS Session Token')
 parser.add_argument('-x', '--expiry', required=False, help="Expiry time in seconds. Default: 3600", default=3600, type=int)
@@ -9,6 +10,7 @@ parser.add_argument('-r', '--role-arn', required=False, help="Role ARN to assume
 parser.add_argument('-s', '--save', required=False, action="store_true", help="Saves STS tokens to AWS profile. Default: false")
 parser.add_argument('-p', '--profile', required=False, help="AWS profile to set token for. Can also be set as AWS_SET_PROFILE environment variable")
 parser.add_argument('-v', '--verbose', required=False, action="store_true", help="Verbose output. Default: false")
+parser.add_argument('--version', action='version', version='%(prog)s {}'.format(__version__))
 
 args = parser.parse_args()
 config = vars(args)
