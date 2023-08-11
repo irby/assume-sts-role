@@ -3,7 +3,8 @@ from __version import __version__
 
 parser = argparse.ArgumentParser(description='Get AWS Session Token')
 parser.add_argument('-x', '--expiry', required=False, help="Expiry time in seconds. Default: 3600", default=3600, type=int)
-parser.add_argument('-e', '--env-file', required=False, help="Path to env file with AWS credentials")
+parser.add_argument('-a', '--acting-as', required=False, help="AWS profile to act as to execute STS call. Can also be set as AWS_PROFILE environment variable")
+parser.add_argument('-e', '--env-file', required=False, help="Path to env file with AWS configuration.")
 parser.add_argument('-d', '--device', required=False, help="MFA device identifier. Can also be set as AWS_MFA_DEVICE environment variable")
 parser.add_argument('-t', '--token', required=False, help="MFA token from your device. Required if MFA device is set")
 parser.add_argument('-r', '--role-arn', required=False, help="Role ARN to assume. Can also be set as AWS_ROLE_ARN environment variable")
