@@ -2,7 +2,8 @@ import boto3, argparse, uuid, os, dotenv, logging
 from __version import __version__
 
 parser = argparse.ArgumentParser(description='Get AWS Session Token')
-parser.add_argument('-x', '--expiry', required=False, help="Expiry time in seconds. Default: 3600", default=3600, type=int)
+parser.add_argument('-x', '--expiry', required=False, help="Expiry time in seconds. Can also be set as EXPIRY_TIME environment variable. Default: 3600", type=int)
+parser.add_argument('-xh', '--expiry-hours', required=False, help="Expiry time in hours. Can also be set as EXPIRY_TIME_HOURS environment variable. Default: 1", type=int)
 parser.add_argument('-a', '--acting-as', required=False, help="AWS profile to act as to execute STS call. Can also be set as AWS_PROFILE environment variable")
 parser.add_argument('-e', '--env-file', required=False, help="Path to env file with AWS configuration.")
 parser.add_argument('-d', '--device', required=False, help="MFA device identifier. Can also be set as AWS_MFA_DEVICE environment variable")
@@ -29,14 +30,24 @@ if config['env_file'] is not None:
     else:
         dotenv.load_dotenv(config['env_file'])
 
+if config['expiry'] is not None and config['expiry_hours'] is not None:
+    raise ValueError("Both expiry and expiry_hours cannot be set. Please set only one")
 
 mfa_token = config['token']
 mfa_device = config['device'] or os.getenv("AWS_MFA_DEVICE")
 profile = config['profile'] or os.getenv("AWS_SET_PROFILE")
 role_arn = config['role_arn'] or os.getenv("AWS_ROLE_ARN")
-expiry_time = config['expiry']
 save_token = config['save']
 
+expiry_time_seconds = config['expiry'] or os.getenv("EXPIRY_TIME")
+expiry_time_hours = config['expiry_hours'] or os.getenv("EXPIRY_TIME_HOURS")
+
+expiry_time = 3600
+
+if expiry_time_seconds is not None:
+    expiry_time = int(expiry_time_seconds)
+elif expiry_time_hours is not None:
+    expiry_time = int(expiry_time_hours) * 3600
 
 if role_arn is None:
     raise KeyError("Role ARN not set. Please set AWS_ROLE_ARN environment variable or use -r/--role-arn argument")
